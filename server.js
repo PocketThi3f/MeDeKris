@@ -30,6 +30,6 @@ app.use(routes);
 // Standard documentation to allow Sequelize ORM
 db.sequelize.sync().then(function() {
 	app.listen(port, function() {
-		console.log("Successfully Connected to port: "+ port);
+		console.log("Successfully Connected to port: " + port);
 	});
 });

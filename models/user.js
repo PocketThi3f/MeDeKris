@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-  var User = sequelize.define("User", {
+  var User = sequelize.define("user", {
     authorid: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -7,9 +7,10 @@ module.exports = function(sequelize, DataTypes) {
       autoIncrement: true
     },
     //The object below is for connecting a single to the potential numerous posts that will be housed in the Post table
-    classMethods: {
-      associate: function(models) {
-        User.hasMany(models.Post);
+    {
+      classMethods: {
+        associate: function(models) {
+          User.hasMany(models.Post);
       }
     }
   });

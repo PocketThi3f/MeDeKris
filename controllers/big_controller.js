@@ -22,8 +22,11 @@ router.post("/:id", function(req, res) {
 	db.Post.create({
 		// Post creation
 		where: {
-			req.body.id
+			req.post.id
 		}
+	}).then(function(dbPost) {
+
+		res.redirect("/");
 	});
 });
 
@@ -32,13 +35,17 @@ router.put("/:id", function(req, res) {
 
 	db.Post.update(
 		req.body,
-		{
+	{
 			where: {
 				id: req.body.id
 			}
+	}).then(function(data) {
+
+		res.redirect("/");
 	});
 });
 
+// Function for removal of author post
 router.delete("/:id", function(req, res) {
 
 	db.Post.destroy({
@@ -46,5 +53,10 @@ router.delete("/:id", function(req, res) {
 		where: {
 			req.params.id
 		}
+	}).then(function(data) {
+
+		res.redirect("/");
 	});
 });
+
+module.exports = router;

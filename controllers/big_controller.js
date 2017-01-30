@@ -9,7 +9,7 @@ router.get("/", function(req, res) {
 	db.Post.findAll({}).then(function(data) {
 		// Handlebars object
 		var hbsObject = {
-			post: data
+			Posts: data
 		};
 
 		res.render("index", hbsObject);
@@ -17,27 +17,29 @@ router.get("/", function(req, res) {
 });
 
 // Function for posting suggestions to a forum area
-router.post("/:id", function(req, res) {
+router.post("/", function(req, res) {
 
 	db.Post.create({
 		// Post creation
-		where: {
-			req.post.id
+		postId: req.body.postId
+	}).then(function(data) {
+
+		var hbsObject = {
+			Posts: data
 		}
-	}).then(function(dbPost) {
 
 		res.redirect("/");
 	});
 });
 
 // Function for updating post suggestions
-router.put("/:id", function(req, res) {
+router.put("/", function(req, res) {
 
 	db.Post.update(
 		req.body,
 	{
 			where: {
-				id: req.body.id
+				postId: req.body.postId
 			}
 	}).then(function(data) {
 
@@ -46,12 +48,12 @@ router.put("/:id", function(req, res) {
 });
 
 // Function for removal of author post
-router.delete("/:id", function(req, res) {
+router.delete("/", function(req, res) {
 
 	db.Post.destroy({
 		// Post removal
 		where: {
-			req.params.id
+			postId: req.body.postId
 		}
 	}).then(function(data) {
 

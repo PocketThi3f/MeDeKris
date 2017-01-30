@@ -6,16 +6,19 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: true,
       autoIncrement: true
     },
-    //The object below is for userid coming from User table
-    classMethods: {
-      associate: function(models) {
-        post.belongsTo(models.User,
-        {
-          onDelete: "cascade",
-          foreignKey: {
-            allowNull: false
+      //The object below is for userid coming from User table
+      {
+        classMethods: {
+          associate: function(models) {
+            Post.belongsTo(models.User,
+              {
+                onDelete: "cascade",
+                foreignKey: {
+                  allowNull: false
+                }
+              });
           }
-        });
+        }
       },
     //End of userid object
       type: DataTypes.INTEGER,
@@ -37,8 +40,8 @@ module.exports = function(sequelize, DataTypes) {
         len: [5]
       }
     },
-    spotaddress: {
-      type: DataTypes.STRING,
+    spotdescription: {
+      type: DataTypes.TEXT,
       validate: {
         len: [5]
       }

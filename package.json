@@ -1,0 +1,31 @@
+{
+  "name": "tor-ist",
+  "version": "1.0.0",
+  "description": "A web application based simply to accommodate a user who is visiting an area for the first time and refer to postings of nearby residents.  ",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PocketThi3f/MeDeKris.git"
+  },
+  "author": "Kris, Deonte, Meshach",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/PocketThi3f/MeDeKris/issues"
+  },
+  "homepage": "https://github.com/PocketThi3f/MeDeKris#readme",
+  "dependencies": {
+    "body-parser": "^1.16.0",
+    "express": "^4.14.1",
+    "express-handlebars": "^3.0.0",
+    "method-override": "^2.3.7",
+    "mysql": "^2.13.0",
+    "sequelize": "^3.30.0",
+    "sequelize-cli": "^2.5.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}

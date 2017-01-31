@@ -4,7 +4,7 @@ var router = express.Router();
 var db = require("../models");
 
 // Using Sequelize ORM functionality to apply methods tapping into the mySQL database
-router.get("/", function(req, res) {
+router.get("/index", function(req, res) {
 
 	db.Post.findAll({}).then(function(data) {
 		// Handlebars object

@@ -6,11 +6,9 @@ var db = require("../models");
 // Using Sequelize ORM functionality to apply methods tapping into the mySQL database
 router.get("/", function(req, res) {
 
-	db.Post.findAll({}).then(function(data) {
-		// Handlebars object
-		var hbsObject = {
-			post: data
-		};
+	db.User.findAll({
+		include: [db.Post]
+	}).then(function(data) {
 
 		res.render("index", hbsObject);
 	});
@@ -19,14 +17,10 @@ router.get("/", function(req, res) {
 // Function for posting suggestions to a forum area
 router.post("/", function(req, res) {
 
-	db.Post.create({
+	db.User.create({
 		// Post creation
-		postId: req.body.postId
+		include: [db.Post]
 	}).then(function(data) {
-
-		var hbsObject = {
-			Posts: data
-		}
 
 		res.redirect("/");
 	});
@@ -35,7 +29,7 @@ router.post("/", function(req, res) {
 // Function for updating post suggestions
 router.put("/", function(req, res) {
 
-	db.Post.update(
+	db.User.update(
 		req.body,
 	{
 			where: {
@@ -50,7 +44,7 @@ router.put("/", function(req, res) {
 // Function for removal of author post
 router.delete("/", function(req, res) {
 
-	db.Post.destroy({
+	db.Author.destroy({
 		// Post removal
 		where: {
 			postId: req.body.postId

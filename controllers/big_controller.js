@@ -10,26 +10,29 @@ router.get("/", function(req, res) {
 		include: [db.Post]
 	}).then(function(data) {
 
-		res.render("index", hbsObject);
+		res.render("index", data);
 	});
 });
 
-app.get("/", function(req, res) {
-    // Searching for top most recent post
+// Function for pulling most recent post
+router.get("/", function(req, res) {
+
     db.User.findOne({
       where: {
         postId: req.body.postId,
-        spotName: req.
+        spotName: req.body.spotName,
+        spotAddress: req.body.spotAddress,
+        spotDescription: req.body.spotDescription
       },
       include: [db.Post]
     }).then(function(data) {
 
       res.redirect("/");
-
+      res.json(data);
     });
 });
 
-// Function for posting suggestions to a forum area
+// Function for submitting a post from user
 router.post("/", function(req, res) {
 
 	db.User.create({
@@ -38,6 +41,7 @@ router.post("/", function(req, res) {
 	}).then(function(data) {
 
 		res.redirect("/");
+		res.json(data);
 	});
 });
 
@@ -53,13 +57,14 @@ router.put("/", function(req, res) {
 	}).then(function(data) {
 
 		res.redirect("/");
+		res.json(data);
 	});
 });
 
 // Function for removal of author post
 router.delete("/", function(req, res) {
 
-	db.User.destroy({
+	db.Post.destroy({
 		// Post removal
 		where: {
 			postId: req.body.postId
@@ -67,6 +72,7 @@ router.delete("/", function(req, res) {
 	}).then(function(data) {
 
 		res.redirect("/");
+		res.json(data);
 	});
 });
 

@@ -7,6 +7,7 @@ var db = require("../models");
 router.get("/", function(req, res) {
 
 	db.User.findAll({
+		
 		include: [db.Post]
 	}).then(function(data) {
 
@@ -14,7 +15,7 @@ router.get("/", function(req, res) {
 	});
 });
 
-// Function for pulling most recent post
+// Function for pulling most recent post based on username
 router.get("/", function(req, res) {
 
     db.User.findOne({

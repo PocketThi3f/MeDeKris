@@ -14,11 +14,12 @@ router.get("/", function(req, res) {
 	});
 });
 
-app.get("/:postId", function(req, res) {
+app.get("/", function(req, res) {
     // Searching for top most recent post
     db.User.findOne({
       where: {
-        postId: req.params.postId
+        postId: req.body.postId,
+        spotName: req.
       },
       include: [db.Post]
     }).then(function(data) {

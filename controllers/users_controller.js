@@ -33,20 +33,16 @@ router.post("/register", function(req, res) {
 
 	var errors = req.validationErrors();
 
-	if(errors) {
-		console.log("Problem");
-		res.render("register", {
-			errors:errors
-		})
-	} else {
-		console.log("OK");
-		db.User.create(req.body).then(function(err, dbUser) {
-     	 if(err) throw err;
-     	 console.log(dbUser);
-		});
-		req.flash("success_msg", "You're all set, thanks for signing up!");
-		res.redirect("/users/login");
-	}
+	db.User.create(req.body).then(function(dbUser) {
+        console.log('new user:', dbUser);
+        req.flash("success_msg", "You're all set, thanks for signing up!");
+        res.redirect("/users/login");
+    })
+    .catch(function(error) {
+        console.error('error found while make a new user:', error);
+        // redirect to some error page?
+        res.redirect("/error");
+    })
 });
 
 

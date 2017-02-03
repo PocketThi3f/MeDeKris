@@ -93,19 +93,3 @@ db.sequelize.sync({ force: false }).then(function(err) {
    })
  }
 });
-
-const unhandledRejection = require("unhandled-rejection");
- 
-// Assuming `loggingServer` is some kind of logging API... 
- 
-let rejectionEmitter = unhandledRejection({
-    timeout: 20
-});
- 
-rejectionEmitter.on("unhandledRejection", (error, promise) => {
-    console.log(registerError(error));
-});
- 
-rejectionEmitter.on("rejectionHandled", (error, promise) => {
-    console.log(registerHandled(error));
-})

@@ -1,11 +1,18 @@
 // Setup for the main server connection
 var express = require("express");
 var bodyParser = require("body-parser");
+var cookieParser = require("cookie-parser");
 var methodOverride = require("method-override");
 var exphbs = require("express-handlebars");
+var expressValidator = require('express-validator');
+var flash = require('connect-flash');
+var session = require('express-session');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
 var port = process.env.PORT || 1850;
 var app = express();
 var db = require("./models");
+var SALT_WORK_FACTOR = 10;
 
 // Static content usage for the website
 app.use(express.static(process.cwd() + "/public"));
@@ -53,7 +60,6 @@ app.use(function(req, res, next) {
 	next();
 });
 
-var users = require("./controllers/Users.js");
 //end of items added by Deonte
 
 // Override unintentional method of DELETE with POST
@@ -66,12 +72,40 @@ app.engine("handlebars", exphbs({
 app.set("view engine", "handlebars");
 
 // Routing towards controller file 
-var routes = require("./controllers/big_controller.js");
-app.use(routes);
+require("./controllers/big_controller.js");
+require("./controllers/users_controller.js");
 
 // Standard documentation to allow Sequelize ORM
-db.sequelize.sync().then(function() {
-	app.listen(port, function() {
-		console.log("Successfully connected to port: " + port);
-	});
+db.sequelize.sync({ force: false }).then(function(err) {
+ if (err) {
+  throw err[0]
+ } else {
+  //TEST CODE ONLY!!!! DELETE BEFORE FINALIZATION
+  db.User.find({ where: { username: 'test' } }).then(function(user) {
+   if (!user) {
+    db.User.build({ userName: 'test', email: 'test@email.com', password: '1234567' }).save();
+   };
+  });
+  //DELETE ALL THIS
+
+   app.listen(port, function() {
+    console.log("Successfully connected to port: " + port);
+   })
+ }
 });
+
+const unhandledRejection = require("unhandled-rejection");
+ 
+// Assuming `loggingServer` is some kind of logging API... 
+ 
+let rejectionEmitter = unhandledRejection({
+    timeout: 20
+});
+ 
+rejectionEmitter.on("unhandledRejection", (error, promise) => {
+    console.log(registerError(error));
+});
+ 
+rejectionEmitter.on("rejectionHandled", (error, promise) => {
+    console.log(registerHandled(error));
+})

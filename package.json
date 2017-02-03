@@ -17,25 +17,24 @@
   },
   "homepage": "https://github.com/PocketThi3f/MeDeKris#readme",
   "dependencies": {
-    "body-parser": "^1.16.0",
-    "express": "^4.14.1",
-    "express-handlebars": "^3.0.0",
-    "method-override": "^2.3.7",
-    "mysql": "^2.13.0",
-    "sequelize": "^3.30.0",
-    "sequelize-cli": "^2.5.1",
     "bcryptjs": "*",
+    "body-parser": "^1.16.0",
     "connect-flash": "*",
     "cookie-parser": "^1.4.1",
     "express": "*",
+    "express-handlebars": "^3.0.0",
     "express-messages": "*",
     "express-session": "*",
     "express-validator": "*",
+    "method-override": "^2.3.7",
+    "mysql": "^2.13.0",
     "passport": "*",
     "passport-http": "*",
-    "passport-local": "*"
-},
-
+    "passport-local": "*",
+    "sequelize": "^3.30.0",
+    "sequelize-cli": "^2.5.1",
+    "unhandled-rejection": "^1.0.0"
+  },
   "devDependencies": {
     "nodemon": "^1.11.0"
   }

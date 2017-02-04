@@ -1,4 +1,4 @@
-<div class="container-fluid">
+{{!-- <div class="container-fluid">
 
 	<h1 class="forum">Hi There! Welcome To the Oasis Forum.</h1>
 
@@ -35,4 +35,73 @@
 			</li>
 			{{/each}}
 		</ol>
-</div>	
+</div>	 --}}
+  <div class="container-fluid">
+        <nav class="navbar">
+            <div class="container-fluid navArea">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <div class="navbar-nav navbar-left">
+                      <a class="navbar-brand" id="mainNav" href="#">Oasis</a>
+                      <img src="../images/ticketsicon.png" style="width:50px;height:50px;"/>
+                      <ul class="nav navbar-nav">
+                          <li><a href="#">Your Trip</a></li>
+                          <li><a href="#">About us</a></li>
+                          <li><a href="./views/register.handlebars">Sign Up</a></li>
+                      </ul>
+                    </div>
+                </div>
+                <div class="infoFillOut">
+                    <ul class="nav navbar-nav navbar-right">
+                        <form class="navbar-form navbar-left">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Username">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Password">
+                            </div>
+                            <button type="submit" class="btn btn-warning">Submit</button>
+                        </form>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+  <div class="container-fluid">
+    <div class="jumbotron">
+            <p>This is <strong>Oasis,</strong> connect with locals and experiacned travelers on your upcoming trip. In the below box input the date of your trip, your hobbies, favorite activities and prefered dining. Our community will provide amazing suggestions based of your criteria and make your next trip unforgetable. Why try and plan an itenerary or do the tourist activies when you can get amazing, detailed and friendly advice from locals and previous travelers. </p>
+    </div>
+        <div class="communityboard">
+            <table class="table table-striped table-hover table-responsive">
+                <tbody>
+                    <tr data-columns="2">
+                        <td class="h4">
+                           "I was in Hawaii!!!"
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+  </div>
+  
+  <div id="map" style="width: 750px; height: 400px;"></div>
+  <div class="container form">
+      <label for="idfield">Author (which is logged in):</label>
+          <input placeholder="Post Title" type="text" class="form-control" id="title">
+  <br/>
+      <label for="Your Trip">Your Trip:</label>
+        <textarea class="form-control" rows="10" id="body"></textarea>
+           <button type="submit" class="btn btn-success submit">Submit</button>
+  </div>
+</div>
+    
+  <script>
+      var map
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 34.0689, lng: -118.4452},
+          zoom: 15
+        });
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB-8tivjjT3GMEglEItF9Wk-xcGtuGxz-o&callback=initMap"
+    async defer></script>

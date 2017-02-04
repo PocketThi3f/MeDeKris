@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/PocketThi3f/MeDeKris#readme",
   "dependencies": {
-    "bcryptjs": "*",
+    "bcrypt-nodejs": "*",
     "body-parser": "^1.16.0",
     "connect-flash": "*",
     "cookie-parser": "^1.4.1",

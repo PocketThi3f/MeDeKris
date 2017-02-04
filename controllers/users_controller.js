@@ -68,8 +68,7 @@ passport.use(new LocalStrategy(
   function(userName, password, done) {
   	db.User.findOne({
   	username: username
-  }).then(function(err, user) {
-		if(err) throw err;
+  }).then(function(user) {
    		if(!user){
    			return done(null, false, {message: 'Unknown User'});
 		}

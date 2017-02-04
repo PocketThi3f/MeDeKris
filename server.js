@@ -12,7 +12,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var port = process.env.PORT || 1850;
 var app = express();
 var db = require("./models");
-var SALT_WORK_FACTOR = 10;
+SALT_WORK_FACTOR = 10;
 
 // Static content usage for the website
 app.use(express.static(process.cwd() + "/public"));
@@ -76,20 +76,22 @@ require("./controllers/big_controller.js");
 require("./controllers/users_controller.js");
 
 // Standard documentation to allow Sequelize ORM
-db.sequelize.sync({ force: false }).then(function(err) {
- if (err) {
-  throw err[0]
- } else {
+db.sequelize.sync({force: true}).then(function() {
+
   //TEST CODE ONLY!!!! DELETE BEFORE FINALIZATION
-  db.User.find({ where: { username: 'test' } }).then(function(user) {
+  db.User.find({ where: { userName: 'test' } }).then(function(user) {
    if (!user) {
     db.User.build({ userName: 'test', email: 'test@email.com', password: '1234567' }).save();
+    console.log(db.User.password);
+console.log(db.User.password_hash);
    };
-  });
+  })
+  .catch(function(error) {
+        console.error('error found while creating dummy data', error);
+      })
   //DELETE ALL THIS
 
    app.listen(port, function() {
     console.log("Successfully connected to port: " + port);
    })
- }
-});
+ });

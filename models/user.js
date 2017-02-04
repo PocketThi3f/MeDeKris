@@ -1,4 +1,4 @@
-var bcrypt = require("bcryptjs");
+var bcrypt = require("bcrypt-nodejs");
 
 module.exports = function(sequelize, DataTypes) {
   var User = sequelize.define("User", {
@@ -19,6 +19,13 @@ module.exports = function(sequelize, DataTypes) {
     email: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        len: [6]
+      }
     }
   },
     
@@ -45,7 +52,7 @@ module.exports = function(sequelize, DataTypes) {
       associate: function(models) {
         User.hasMany(models.Post);
       },
-      validPassword: function(password, passwd, done, user){
+      validPassword: function(password, passwordConfirm, done, user){
         bcrypt.compare(password, passwordConfirm, function(err, isMatch){
           if (err) console.log(err)
           if (isMatch) {
@@ -67,11 +74,11 @@ module.exports = function(sequelize, DataTypes) {
     var salt = bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt){
       return salt
     });
-    bcrypt.hash(user.password, salt, null, function(err, hash){
+    bcrypt.hashSync(user.password, salt, null, function(err, hash){
       if(err) return next(err);
       user.password = hash;
       return fn(null, user)
     });
-  })
+  });
   return User;
 };

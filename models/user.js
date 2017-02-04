@@ -50,7 +50,8 @@ module.exports = function(sequelize, DataTypes) {
   {
     classMethods: {
       associate: function(models) {
-        User.hasMany(models.Post);
+        User.hasMany(models.Post),
+        User.hasMany(models.Trip);
       },
       validPassword: function(password, passwordConfirm, done, user){
         bcrypt.compare(password, passwordConfirm, function(err, isMatch){

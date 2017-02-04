@@ -12,6 +12,9 @@ var LocalStrategy = require('passport-local').Strategy;
 var port = process.env.PORT || 1850;
 var app = express();
 var db = require("./models");
+// Routing towards controller file 
+require("./controllers/big_controller.js");
+require("./controllers/users_controller.js");
 SALT_WORK_FACTOR = 10;
 
 // Static content usage for the website
@@ -19,16 +22,16 @@ app.use(express.static(process.cwd() + "/public"));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
-	extended: false
+  extended: false
 }));
 
 //items added for login by Deonte
 app.use(cookieParser());
 
 app.use(session({
-	secret: "secret",
-	saveUninitialized: true,
-	resave: true
+  secret: "secret",
+  saveUninitialized: true,
+  resave: true
 }));
 
 app.use(passport.initialize());
@@ -54,10 +57,10 @@ app.use(expressValidator({
 app.use(flash());
 
 app.use(function(req, res, next) {
-	res.locals.success_msg = req.flash("success_msg");
-	res.locals.error_msg = re.flash("error_msg");
-	res.locals.error = req.flash("error");
-	next();
+  res.locals.success_msg = req.flash("success_msg");
+  res.locals.error_msg = re.flash("error_msg");
+  res.locals.error = req.flash("error");
+  next();
 });
 
 //end of items added by Deonte
@@ -66,14 +69,11 @@ app.use(function(req, res, next) {
 app.use(methodOverride("method"));
 
 app.engine("handlebars", exphbs({
-	defaultLayout: "main"
+  defaultLayout: "main"
 }));
 
 app.set("view engine", "handlebars");
 
-// Routing towards controller file 
-require("./controllers/big_controller.js");
-require("./controllers/users_controller.js");
 
 // Standard documentation to allow Sequelize ORM
 db.sequelize.sync({force: true}).then(function() {

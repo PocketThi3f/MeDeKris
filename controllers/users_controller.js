@@ -72,6 +72,14 @@ passport.use(new LocalStrategy(
    		if(!user){
    			return done(null, false, {message: 'Unknown User'});
 		}
+		db.User.classMethods.validPassword(password, user.password, function(err, isMatch){
+				if(err) throw err;
+				if(isMatch){
+					return done(null, user);
+				} else {
+					return done(null, false, {message: "Invalid Password"})
+				}
+			});
 	});
  }));
 //End block

@@ -4,27 +4,23 @@ var bodyParser = require("body-parser");
 var cookieParser = require("cookie-parser");
 var methodOverride = require("method-override");
 var exphbs = require("express-handlebars");
-<<<<<<< HEAD
-<<<<<<< HEAD
-var port = process.env.PORT || 2000;
-=======
-=======
->>>>>>> bd5ae5ab333b2f30df25cb6c57ca11755a03c300
 var expressValidator = require('express-validator');
 var flash = require('connect-flash');
 var session = require('express-session');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+
 var port = process.env.PORT || 1850;
-<<<<<<< HEAD
->>>>>>> d0d977a3aaf75f6f44333bdaad2f6ff85d1f8ecb
-=======
->>>>>>> bd5ae5ab333b2f30df25cb6c57ca11755a03c300
+
 var app = express();
 var db = require("./models");
-require("./controllers/big_controller.js");
-require("./controllers/users_controller.js");
 SALT_WORK_FACTOR = 10;
+
+// Routing with Controllers.js
+var routes = require("./controllers/big_controller.js");
+var loginRoute = require("./controllers/users_controller.js");
+app.use(routes);
+app.use(loginRoute);
 
 // Static content usage for the website
 app.use(express.static(process.cwd() + "/public"));
@@ -67,7 +63,7 @@ app.use(flash());
 
 app.use(function(req, res, next) {
   res.locals.success_msg = req.flash("success_msg");
-  res.locals.error_msg = re.flash("error_msg");
+  res.locals.error_msg = req.flash("error_msg");
   res.locals.error = req.flash("error");
   next();
 });
@@ -89,19 +85,19 @@ app.set("view engine", "handlebars");
 db.sequelize.sync({force: true}).then(function() {
 
   //TEST CODE ONLY!!!! DELETE BEFORE FINALIZATION
-  db.User.find({ where: { userName: 'test' } }).then(function(user) {
-   if (!user) {
-    db.User.build({ userName: 'test', email: 'test@email.com', password: '1234567' }).save();
-    console.log(db.User.password);
-console.log(db.User.password_hash);
-   };
-  })
-  .catch(function(error) {
-        console.error('error found while creating dummy data', error);
-      })
+//   db.User.find({ where: { userName: 'test' } }).then(function(user) {
+//    if (!user) {
+//     db.User.build({ userName: 'test', email: 'test@email.com', password: '1234567' }).save();
+//     console.log(db.User.password);
+// console.log(db.User.password_hash);
+//    };
+//   })
+//   .catch(function(error) {
+//         console.error('error found while creating dummy data', error);
+//       })
   //DELETE ALL THIS
 
    app.listen(port, function() {
     console.log("Successfully connected to port: " + port);
-   })
+   });
  });

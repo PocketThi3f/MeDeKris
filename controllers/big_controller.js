@@ -6,9 +6,11 @@ var db = require("../models");
 // Using Sequelize ORM functionality to apply methods tapping into the mySQL database
 router.get("/", function(req, res) {
 
-	db.User.findAll({
-		include: [db.Post]
-	}).then(function(data) {
+	db.Post.findAll({order: '"updatedAt" DESC'}).then(function(trips) {
+		// Handlebars object
+		var hbsObject = {
+			trips: trips
+		};
 
 		res.render("index", hbsObject);
 	});
@@ -17,19 +19,41 @@ router.get("/", function(req, res) {
 // Function for posting suggestions to a forum area
 router.post("/", function(req, res) {
 
-	db.User.create({
-		// Post creation
-		include: [db.Post]
-	}).then(function(data) {
+	db.Post.create({
+		// Trip creation
+		spotName: req.body.spotName,
+		spotAddress: req.body.spotAddress
+	}).then(function(dbPost) {
+
+		var hbsObject = {
+			Posts: dbPost
+		}
 
 		res.redirect("/");
 	});
 });
 
+// router.post("/:tripId", function(req, res) {
+
+// 	db.Post.create({
+// 		// Post creation
+// 		spotName: req.body.spotName,
+// 		spotAddress: req.body.spotAddress,
+// 		spotDescription: req.spotDescription
+// 	}).then(function(post) {
+
+// 		var hbsObject = {
+// 			Post: post
+// 		}
+
+// 		res.redirect("/");
+// 	});
+// });
+
 // Function for updating post suggestions
 router.put("/", function(req, res) {
 
-	db.User.update(
+	db.Post.update(
 		req.body,
 	{
 			where: {
@@ -44,7 +68,7 @@ router.put("/", function(req, res) {
 // Function for removal of author post
 router.delete("/", function(req, res) {
 
-	db.Author.destroy({
+	db.Post.destroy({
 		// Post removal
 		where: {
 			postId: req.body.postId

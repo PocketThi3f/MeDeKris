@@ -1,25 +1,22 @@
 module.exports = function(sequelize, DataTypes) {
-  var Post = sequelize.define("Post", {
-    postId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
+  var Trip = sequelize.define("Trip", {
+    tripId: {
+    	type: DataTypes.INTEGER,
+    	allowNull: false,
       primaryKey: true,
       autoIncrement: true
     },
-    spotName: {
+    hubName: {
+        type: DataTypes.STRING
+    },
+    hubAddress: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         validate: {
           len: [5]
         }
     },
-    spotAddress: {
-        type: DataTypes.STRING,
-        validate: {
-          len: [5]
-        }
-    },
-    spotDescription: {
+    seekingCategory: {
         type: DataTypes.STRING,
         validate: {
           len: [5]
@@ -30,8 +27,7 @@ module.exports = function(sequelize, DataTypes) {
     {
       classMethods: {
         associate: function(models) {
-          Post.belongsTo(models.Trip), 
-          Post.belongsTo(models.User,
+          Trip.belongsTo(models.User,
           {
             onDelete: "cascade",
             foreignKey: {
@@ -41,5 +37,5 @@ module.exports = function(sequelize, DataTypes) {
         }
     }
   });
-  return Post;
+  return Trip;
 };

@@ -6,10 +6,10 @@ var db = require("../models");
 // Using Sequelize ORM functionality to apply methods tapping into the mySQL database
 router.get("/index", function(req, res) {
 
-	db.Post.findAll({}).then(function(data) {
+	db.Post.findAll({order: '"updatedAt" DESC'}).then(function(trips) {
 		// Handlebars object
 		var hbsObject = {
-			post: data
+			trips: trips
 		};
 
 		res.render("index", hbsObject);
@@ -19,13 +19,31 @@ router.get("/index", function(req, res) {
 // Function for posting suggestions to a forum area
 router.post("/", function(req, res) {
 
-	db.Post.create({
+	db.Trip.create({
 		// Post creation
-		postId: req.body.postId
-	}).then(function(data) {
+		hubName: req.body.hubName,
+		hubAddress: req.body.hubAddress
+	}).then(function(trip) {
 
 		var hbsObject = {
-			Posts: data
+			Trip: trip
+		}
+
+		res.redirect("/");
+	});
+});
+
+router.post("/:tripId", function(req, res) {
+
+	db.Post.create({
+		// Post creation
+		spotName: req.body.spotName,
+		spotAddress: req.body.spotAddress,
+		spotDescription: req.spotDescription
+	}).then(function(post) {
+
+		var hbsObject = {
+			Post: post
 		}
 
 		res.redirect("/");

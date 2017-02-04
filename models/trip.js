@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-  var Post = sequelize.define("Trip", {
+  var Trip = sequelize.define("Trip", {
     tripId: {
     	type: DataTypes.INTEGER,
     	allowNull: false,
@@ -37,5 +37,5 @@ module.exports = function(sequelize, DataTypes) {
         }
     }
   });
-  return Post;
+  return Trip;
 };

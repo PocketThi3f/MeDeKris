@@ -82,9 +82,17 @@ db.sequelize.sync({force: true}).then(function() {
   db.User.find({ where: { userName: 'test' } }).then(function(user) {
    if (!user) {
     db.User.build({ userName: 'test', email: 'test@email.com', password: '1234567' }).save();
-    console.log(db.User.password);
-console.log(db.User.password_hash);
    };
+  });
+  db.Trip.find({where: {userId: '1'}}).success(function (user){
+      if (!userId) {
+        db.Trip.build({hubName: 'UCLA', hubAddress: 'Gayley Ave', seekingCategory: 'Dining'}).save();
+      };
+    });
+  db.Post.find({where: {tripId: '1'}}).success(function (user){
+    if (!tripId) {
+      db.Trip.build({hubName: 'UCLA', hubAddress: 'Gayley Ave', seekingCategory: 'Dining'}).save();
+    };
   })
   .catch(function(error) {
         console.error('error found while creating dummy data', error);

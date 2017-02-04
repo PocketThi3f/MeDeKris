@@ -10,11 +10,6 @@ router.get("/register", function(req, res) {
 	res.render("register");
 });
 
-//For Login
-router.get("/login", function(req, res) {
-	res.render("login");
-});
-
 //Register the User
 router.post("/register", function(req, res) {
 	var userName = req.body.userName;
@@ -90,7 +85,7 @@ router.post('/login',
     res.redirect('/');
   });
 
-router.get('/logout', function(req, res){
+router.get('/', function(req, res){
 	req.logout();
 
 	req.flash('success_msg', 'You are logged out');

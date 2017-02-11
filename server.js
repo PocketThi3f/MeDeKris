@@ -19,16 +19,14 @@ SALT_WORK_FACTOR = 10;
 // Routing with Controllers.js
 var routes = require("./controllers/big_controller.js");
 var loginRoute = require("./controllers/users_controller.js");
-app.use(routes);
-app.use(loginRoute);
 
 // Static content usage for the website
 app.use(express.static(process.cwd() + "/public"));
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-  extended: false
-}));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.text());
+app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
 //items added for login by Deonte
 app.use(cookieParser());
@@ -79,7 +77,9 @@ app.engine("handlebars", exphbs({
 
 app.set("view engine", "handlebars");
 
-// Routing towards controller file 
+// Routing towards controller file
+app.use(routes);
+app.use(loginRoute);
 
 // Standard documentation to allow Sequelize ORM
 db.sequelize.sync({force: true}).then(function() {
